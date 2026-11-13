@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Catálogo interactivo de videojuegos para ROG Ally X - Latoxa Gaming. Selecciona tus títulos favoritos y envía tu pedido por WhatsApp.">
+    <meta property="og:title" content="Latoxa Gaming | Lista de Juegos ROG Ally">
+    <meta property="og:description" content="Explora nuestro catálogo de Steam, Switch, PS1, PS2, PS3 y PS5 y arma tu pedido al instante.">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#090a0f">
+    <title>Latoxa Gaming ROG Ally Lista De Juegos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        rog: {
+                            bg: '#090a0f',
+                            card: '#13151f',
+                            surface: '#1a1d2b',
+                            red: '#ff003c',
+                            cyan: '#00f0ff',
+                            purple: '#9d4edd',
+                            switch: '#e60012',
+                            steam: '#1b2838'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Personalización de scrollbar y efectos visuales estilo consola */
+        body {
+            background-color: #090a0f;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(255, 0, 60, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(0, 240, 255, 0.07) 0%, transparent 40%);
+            color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Relación de aspecto exacta 2:3 para carátulas */
+        .cover-aspect {
+            aspect-ratio: 2 / 3;
+        }
+
+        /* Borde RGB animado sutil para tarjetas enfocadas o hover */
+        .rog-card-glow {
+            transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .rog-card-glow:hover, .rog-card-glow:focus-within {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 14px 30px -8px rgba(255, 0, 60, 0.35), 0 0 15px rgba(0, 240, 255, 0.2);
+            border-color: rgba(255, 0, 60, 0.8);
+        }
+
+        /* Ocultar scrollbar en pestañas móviles */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animación de entrada para modal */
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-animate {
+            animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-rog-red selection:text-white">
+
+    <!-- Barra Superior Estilo Armoury Crate SE / ROG Ally X -->
+    <header class="sticky top-0 z-30 bg-[#090a0f]/90 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center justify-between gap-3 py-3.5">
+                
+                <!-- Logo y Estado de Consola -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rog-red to-purple-700 flex items-center justify-center shadow-lg shadow-rog-red/30 border border-white/20">
+                        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h1 class="font-display text-lg sm:text-2xl font-bold tracking-wider uppercase text-white">
+                                LATOXA GAMING <span class="text-rog-red">ROG ALLY LISTA DE JUEGOS</span>
+                            </h1>
+                            <span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-widest bg-white/10 text-rog-cyan border border-rog-cyan/30">
+                                VAULT OS
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-400">Biblioteca Steam, Switch & PlayStation</p>
+                    </div>
+                </div>
+
+                <!-- Controles Rápidos y Botón Principal Agregar -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <!-- Botón Modo Cliente / WhatsApp -->
+                    <button onclick="toggleClientMode()" id="clientModeBtn" title="Cambiar a Vista de Cliente (Solo ver y carrito)" class="p-2.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 transition active:scale-95 flex items-center gap-1.5 text-xs font-semibold">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                        </svg>
+                        <span id="clientModeText">Modo Admin</span>
+                    </button>
+
+                    <!-- Botón Publicar/Sincronizar en GitHub (Solo visible en Modo Admin) -->
+                    <button id="exportGithubBtn" onclick="copyUpdatedHTMLForGithub()" title="Copiar código actualizado para pegar en GitHub" class="hidden p-2.5 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 transition active:scale-95 flex items-center gap-1.5 text-xs font-semibold">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                        <span class="hidden sm:inline">Actualizar GitHub</span>
+                    </button>
+
+                    <!-- Botón Carrito de Pedido -->
+                    <button onclick="openCartModal()" id="cartNavBtn" class="relative p-2.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 transition active:scale-95 flex items-center gap-1.5 text-xs font-semibold">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span class="hidden md:inline">Pedido</span>
+                        <span id="cartCountBadge" class="absolute -top-1.5 -right-1.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold bg-emerald-500 text-black hidden">0</span>
+                    </button>
+
+                    <!-- Botón + Agregar Juego (Controlado por Modo Admin) -->
+                    <button id="addGameMainBtn" onclick="openGameModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-rog-red to-rose-600 hover:from-rose-500 hover:to-rog-red text-white font-semibold text-sm shadow-lg shadow-rog-red/30 border border-white/20 flex items-center gap-2 transition active:scale-95">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
+                        </svg>
+                        <span>Agregar Juego</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Barra de Filtros y Búsqueda -->
+            <div class="pb-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <!-- Pestañas Estilo Consola (LB / RB) -->
+                <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="filterTabs">
+                    <button onclick="setFilter('all')" data-filter="all" class="filter-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-white text-black shadow-md">
+                        <span>Todos</span>
+                        <span id="count-all" class="px-1.5 py-0.5 text-[11px] rounded-md bg-black/15 font-bold">0</span>
+                    </button>
+                    <button onclick="setFilter('switch')" data-filter="switch" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5">
+                        <svg class="w-4 h-4 text-[#ff2a3c]" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M10.04 2H6.5A4.5 4.5 0 002 6.5v11A4.5 4.5 0 006.5 22h3.54V2zm-1.8 18.2H6.5A2.7 2.7 0 013.8 17.5v-11A2.7 2.7 0 016.5 3.8h1.74v16.4zM6.1 7.2a1.6 1.6 0 100 3.2 1.6 1.6 0 000-3.2zM17.5 2h-3.54v20h3.54a4.5 4.5 0 004.5-4.5v-11A4.5 4.5 0 0017.5 2zm.3 13.8a1.7 1.7 0 110-3.4 1.7 1.7 0 010 3.4z"/>
+                        </svg>
+                        <span>Switch</span>
+                        <span id="count-switch" class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/10 font-bold">0</span>
+                    </button>
+                    <button onclick="setFilter('switch2')" data-filter="switch2" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5">
+                        <svg class="w-4 h-4 text-[#ff5500]" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                        </svg>
+                        <span>Switch 2</span>
+                        <span id="count-switch2" class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/10 font-bold">0</span>
+                    </button>
+                    <button onclick="setFilter('steam')" data-filter="steam" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5">
+                        <svg class="w-4 h-4 text-[#66c0f4]" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z"/>
+                        </svg>
+                        <span>Steam</span>
+                        <span id="count-steam" class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/10 font-bold">0</span>
+                    </button>
+                    <button onclick="setFilter('ps1')" data-filter="ps1" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5">
+                        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                        <span>PS1</span>
+                        <span id="count-ps1" class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/10 font-bold">0</span>
+                    </button>
+                    <button onclick="setFilter('ps2')" data-filter="ps2" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                        <span>PS2</span>
+                        <span id="count-ps2" class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/10 font-bold">0</span>
+                    </button>
+                    <button onclick="setFilter('ps3')" data-filter="ps3" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5">
+                        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                        <span>PS3</span>
+                        <span id="count-ps3" class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/10 font-bold">0</span>
+                    </button>
+                    <button onclick="setFilter('ps5')" data-filter="ps5" class="filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5">
+                        <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                        <span>PS5</span>
+                        <span id="count-ps5" class="px-1.5 py-0.5 text-[11px] rounded-md bg-white/10 font-bold">0</span>
+                    </button>
+                </div>
+
+                <!-- Buscador -->
+                <div class="relative w-full md:w-72">
+                    <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" id="searchInput" oninput="renderGames()" placeholder="Buscar título o género..." 
+                        class="w-full pl-10 pr-8 py-2 rounded-xl bg-rog-surface border border-white/10 focus:border-rog-cyan focus:outline-none text-sm text-white placeholder-slate-400 transition">
+                    <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor Principal de Carátulas -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- Grid Responsivo de Carátulas 2:3 -->
+        <div id="gamesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5">
+            <!-- Las tarjetas se inyectan dinámicamente -->
+        </div>
+
+        <!-- Estado Vacío -->
+        <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center">
+            <div class="w-20 h-20 rounded-2xl bg-rog-surface border border-white/10 flex items-center justify-center mb-4 text-slate-500">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">No se encontraron juegos</h3>
+            <p class="text-sm text-slate-400 max-w-md mb-5">No hay carátulas que coincidan con tu filtro actual o aún no has agregado juegos a esta categoría.</p>
+            <button onclick="openGameModal()" class="px-5 py-2.5 rounded-xl bg-rog-red hover:bg-rose-600 text-white text-sm font-semibold transition shadow-lg shadow-rog-red/25">
+                + Agregar primer juego
+            </button>
+        </div>
+    </main>
+
+    <!-- Pie de página estilo HUD consola -->
+    <footer class="border-t border-white/5 bg-[#07080c] py-3 px-4 sm:px-8 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1.5"><kbd class="px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-mono text-[10px]">A</kbd> Editar</span>
+                <span class="flex items-center gap-1.5"><kbd class="px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-mono text-[10px]">X</kbd> Eliminar</span>
+            </div>
+            <div>ASUS ROG Ally X • Almacenamiento Local Activo</div>
+        </div>
+    </footer>
+
+    <!-- Modal Agregar / Editar Juego -->
+    <div id="gameModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
+        <div class="bg-[#13151f] border border-white/15 rounded-2xl w-full max-w-2xl shadow-2xl modal-animate overflow-hidden my-auto">
+            
+            <!-- Cabecera Modal -->
+            <div class="px-6 py-4 bg-rog-surface/80 border-b border-white/10 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-rog-red animate-pulse"></span>
+                    <h2 id="modalTitle" class="font-display text-xl font-bold uppercase tracking-wide text-white">Agregar Nuevo Juego</h2>
+                </div>
+                <button onclick="closeGameModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Formulario -->
+            <form id="gameForm" onsubmit="saveGame(event)" class="p-6">
+                <input type="hidden" id="gameId">
+                
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    
+                    <!-- Columna Izquierda: Vista Previa de Carátula 2:3 -->
+                    <div class="md:col-span-5 flex flex-col items-center">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 self-start">Vista Previa Carátula (2:3)</label>
+                        <div class="w-44 sm:w-full max-w-[210px] cover-aspect rounded-xl overflow-hidden bg-rog-bg border-2 border-dashed border-white/20 relative group shadow-xl">
+                            <img id="coverPreview" src="" alt="Vista previa" class="w-full h-full object-cover transition duration-300">
+                            <div id="previewBadge" class="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/75 backdrop-blur-md text-white border border-white/15">
+                                STEAM
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-slate-500 text-center mt-2">Recomendado: imágenes verticales tipo póster (600x900 px).</p>
+                    </div>
+
+                    <!-- Columna Derecha: Campos -->
+                    <div class="md:col-span-7 space-y-4">
+                        
+                        <!-- Título -->
+                        <div>
+                            <label for="titleInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Título del Juego *</label>
+                            <input type="text" id="titleInput" required placeholder="Ej. Elden Ring, Zelda Tears of the Kingdom..." oninput="updateLivePreview()"
+                                class="w-full px-3.5 py-2.5 rounded-xl bg-rog-bg border border-white/15 focus:border-rog-red focus:outline-none text-sm text-white placeholder-slate-500">
+                        </div>
+
+                        <!-- Plataforma -->
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Plataforma *</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="platform" value="steam" checked onchange="updateLivePreview()" class="peer hidden">
+                                    <div class="p-2 rounded-xl bg-rog-bg border border-white/15 peer-checked:border-[#66c0f4] peer-checked:bg-[#1b2838]/60 flex items-center justify-center gap-1.5 transition">
+                                        <svg class="w-3.5 h-3.5 text-[#66c0f4]" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z"/></svg>
+                                        <span class="text-xs font-semibold text-white">Steam</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="platform" value="switch" onchange="updateLivePreview()" class="peer hidden">
+                                    <div class="p-2 rounded-xl bg-rog-bg border border-white/15 peer-checked:border-[#ff2a3c] peer-checked:bg-[#e60012]/20 flex items-center justify-center gap-1.5 transition">
+                                        <svg class="w-3.5 h-3.5 text-[#ff2a3c]" viewBox="0 0 24 24" fill="currentColor"><path d="M10.04 2H6.5A4.5 4.5 0 002 6.5v11A4.5 4.5 0 006.5 22h3.54V2zm-1.8 18.2H6.5A2.7 2.7 0 013.8 17.5v-11A2.7 2.7 0 016.5 3.8h1.74v16.4zM6.1 7.2a1.6 1.6 0 100 3.2 1.6 1.6 0 000-3.2zM17.5 2h-3.54v20h3.54a4.5 4.5 0 004.5-4.5v-11A4.5 4.5 0 0017.5 2zm.3 13.8a1.7 1.7 0 110-3.4 1.7 1.7 0 010 3.4z"/></svg>
+                                        <span class="text-xs font-semibold text-white">Switch</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="platform" value="switch2" onchange="updateLivePreview()" class="peer hidden">
+                                    <div class="p-2 rounded-xl bg-rog-bg border border-white/15 peer-checked:border-[#ff5500] peer-checked:bg-[#ff5500]/20 flex items-center justify-center gap-1.5 transition">
+                                        <svg class="w-3.5 h-3.5 text-[#ff5500]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                                        <span class="text-xs font-semibold text-white">Switch 2</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="platform" value="ps1" onchange="updateLivePreview()" class="peer hidden">
+                                    <div class="p-2 rounded-xl bg-rog-bg border border-white/15 peer-checked:border-slate-300 peer-checked:bg-slate-600/30 flex items-center justify-center gap-1.5 transition">
+                                        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+                                        <span class="text-xs font-semibold text-white">PS1</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="platform" value="ps2" onchange="updateLivePreview()" class="peer hidden">
+                                    <div class="p-2 rounded-xl bg-rog-bg border border-white/15 peer-checked:border-blue-500 peer-checked:bg-blue-700/30 flex items-center justify-center gap-1.5 transition">
+                                        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                                        <span class="text-xs font-semibold text-white">PS2</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="platform" value="ps3" onchange="updateLivePreview()" class="peer hidden">
+                                    <div class="p-2 rounded-xl bg-rog-bg border border-white/15 peer-checked:border-rose-500 peer-checked:bg-rose-800/30 flex items-center justify-center gap-1.5 transition">
+                                        <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                                        <span class="text-xs font-semibold text-white">PS3</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="platform" value="ps5" onchange="updateLivePreview()" class="peer hidden">
+                                    <div class="p-2 rounded-xl bg-rog-bg border border-white/15 peer-checked:border-sky-400 peer-checked:bg-sky-500/25 flex items-center justify-center gap-1.5 transition">
+                                        <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                                        <span class="text-xs font-semibold text-white">PS5</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Imagen de Carátula -->
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Carátula del Juego (Imagen)</label>
+                            <div class="flex items-center gap-2 mb-2">
+                                <label class="flex-1 cursor-pointer">
+                                    <input type="file" accept="image/*" onchange="handleImageUpload(event)" class="hidden">
+                                    <div class="px-3.5 py-2.5 rounded-xl bg-rog-bg border border-dashed border-white/20 hover:border-rog-cyan text-slate-300 hover:text-white text-xs font-semibold flex items-center justify-center gap-2 transition">
+                                        <svg class="w-4 h-4 text-rog-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                        <span>Subir desde archivo</span>
+                                    </div>
+                                </label>
+                            </div>
+                            <input type="text" id="imageUrlInput" placeholder="O pega aquí la URL de la carátula (https://...)" oninput="handleUrlInput()"
+                                class="w-full px-3 py-2 rounded-lg bg-rog-surface border border-white/10 focus:border-rog-cyan focus:outline-none text-xs text-white placeholder-slate-500">
+                        </div>
+
+                        <!-- Género y Estado -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label for="genreInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Género / Etiqueta</label>
+                                <input type="text" id="genreInput" placeholder="Ej. RPG, Acción, Plataformas"
+                                    class="w-full px-3.5 py-2 rounded-xl bg-rog-bg border border-white/15 focus:border-rog-cyan focus:outline-none text-sm text-white placeholder-slate-500">
+                            </div>
+                            <div>
+                                <label for="statusInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Estado</label>
+                                <select id="statusInput" class="w-full px-3.5 py-2 rounded-xl bg-rog-bg border border-white/15 focus:border-rog-cyan focus:outline-none text-sm text-white">
+                                    <option value="Instalado">Instalado</option>
+                                    <option value="Jugando">Jugando</option>
+                                    <option value="Por jugar">Por jugar</option>
+                                    <option value="Completado">Completado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botones Acción Modal -->
+                <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeGameModal()" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-semibold transition">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rog-red to-rose-600 hover:from-rose-500 hover:to-rog-red text-white text-sm font-bold shadow-lg shadow-rog-red/30 transition active:scale-95">
+                        Guardar en Biblioteca
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación para Eliminar (Sin alert/confirm nativo) -->
+    <div id="deleteModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bg-[#13151f] border border-white/15 rounded-2xl max-w-sm w-full p-6 shadow-2xl modal-animate text-center">
+            <div class="w-12 h-12 rounded-full bg-rog-red/15 text-rog-red flex items-center justify-center mx-auto mb-3 border border-rog-red/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">¿Eliminar carátula?</h3>
+            <p id="deleteGameName" class="text-sm text-slate-400 mb-5">Esta acción quitará el juego de tu catálogo.</p>
+            <div class="flex items-center justify-center gap-3">
+                <button onclick="closeDeleteModal()" class="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-sm font-semibold transition">Cancelar</button>
+                <button id="confirmDeleteBtn" class="flex-1 py-2.5 rounded-xl bg-rog-red hover:bg-rose-600 text-white text-sm font-bold shadow-lg shadow-rog-red/25 transition">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación Toast Flotante -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 translate-y-20 opacity-0 pointer-events-none transition-all duration-300 bg-rog-surface border border-white/15 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 text-sm font-medium">
+        <span id="toastDot" class="w-2.5 h-2.5 rounded-full bg-rog-cyan"></span>
+        <span id="toastMessage">Acción completada</span>
+    </div>
+
+    <!-- Modal de Contraseña para Modo Administrador -->
+    <div id="passwordModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="bg-[#13151f] border border-white/15 rounded-2xl max-w-sm w-full p-6 shadow-2xl modal-animate text-center">
+            <div class="w-12 h-12 rounded-full bg-purple-500/15 text-purple-400 flex items-center justify-center mx-auto mb-3 border border-purple-500/30">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Acceso Administrador</h3>
+            <p class="text-xs text-slate-400 mb-4">Ingresa la contraseña para desbloquear la edición</p>
+            
+            <form onsubmit="verifyAdminPassword(event)">
+                <input type="password" id="adminPasswordInput" placeholder="Contraseña..." autofocus
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-rog-bg border border-white/15 focus:border-purple-500 focus:outline-none text-sm text-white text-center tracking-widest mb-4">
+                <div class="flex items-center gap-3">
+                    <button type="button" onclick="closePasswordModal()" class="flex-1 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold transition">Cancelar</button>
+                    <button type="submit" class="flex-1 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-lg shadow-purple-600/25 transition">Ingresar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Carrito / Detalle de Juegos Seleccionados -->
+    <div id="cartModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="bg-[#13151f] border border-white/15 rounded-2xl max-w-lg w-full p-6 shadow-2xl modal-animate flex flex-col max-h-[85vh]">
+            
+            <!-- Cabecera del Carrito -->
+            <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/30">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-lg font-bold text-white uppercase tracking-wider">Tu Selección de Juegos</h3>
+                        <p class="text-xs text-slate-400">Revisa los títulos elegidos para tu ROG Ally X</p>
+                    </div>
+                </div>
+                <button onclick="closeCartModal()" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Nombre del cliente opcional -->
+            <div class="py-4 border-b border-white/10">
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Tu Nombre o Apodo</label>
+                <input type="text" id="clientNameInput" placeholder="Ej. Carlos Mendoza" 
+                    class="w-full px-3.5 py-2 rounded-xl bg-rog-bg border border-white/15 focus:border-emerald-400 focus:outline-none text-sm text-white placeholder-slate-500">
+            </div>
+
+            <!-- Lista de juegos elegidos con carátula miniatura -->
+            <div id="cartGamesList" class="flex-1 overflow-y-auto py-4 space-y-3 pr-1 max-h-[40vh]">
+                <!-- Se inyecta dinámicamente -->
+            </div>
+
+            <!-- Botones de Acción / WhatsApp -->
+            <div class="pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+                <button onclick="closeCartModal()" class="px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-semibold transition">
+                    Seguir viendo
+                </button>
+                <button onclick="sendWhatsAppOrder()" class="flex-1 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-black font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 transition active:scale-95">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                    <span>Enviar Pedido por WhatsApp</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'rog_ally_x_game_vault_v3';
+        let games = [];
+        let currentFilter = 'all';
+        let currentBase64Image = '';
+        let gameIdToDelete = null;
+
+        const PLATFORM_CONFIG = {
+            steam:   { label: 'STEAM',   posterLabel: 'STEAM PC EDITION',  c1: '#1e293b', c2: '#38bdf8', border: 'rgba(102,192,244,0.5)' },
+            switch:  { label: 'SWITCH',  posterLabel: 'NINTENDO SWITCH',   c1: '#7f1d1d', c2: '#ef4444', border: 'rgba(230,0,18,0.6)' },
+            switch2: { label: 'SWITCH2', posterLabel: 'NINTENDO SWITCH 2',  c1: '#7c2d12', c2: '#ff5500', border: 'rgba(255,85,0,0.6)' },
+            ps1:     { label: 'PS1',     posterLabel: 'PLAYSTATION 1',     c1: '#334155', c2: '#cbd5e1', border: 'rgba(203,213,225,0.6)' },
+            ps2:     { label: 'PS2',     posterLabel: 'PLAYSTATION 2',     c1: '#172554', c2: '#3b82f6', border: 'rgba(59,130,246,0.6)' },
+            ps3:     { label: 'PS3',     posterLabel: 'PLAYSTATION 3',     c1: '#18181b', c2: '#f43f5e', border: 'rgba(244,63,94,0.6)' },
+            ps5:     { label: 'PS5',     posterLabel: 'PLAYSTATION 5',     c1: '#0c4a6e', c2: '#e0f2fe', border: 'rgba(56,189,248,0.65)' }
+        };
+
+        function generatePosterSVG(title, platform, accent1, accent2) {
+            const cfg = PLATFORM_CONFIG[platform] || PLATFORM_CONFIG.steam;
+            const c1 = accent1 || cfg.c1;
+            const c2 = accent2 || cfg.c2;
+            const safeTitle = (title || 'NUEVO JUEGO').toUpperCase();
+            const words = safeTitle.split(' ');
+            let lines = [];
+            let currentLine = '';
+            words.forEach(w => {
+                if ((currentLine + ' ' + w).trim().length <= 14) {
+                    currentLine = (currentLine + ' ' + w).trim();
+                } else {
+                    if (currentLine) lines.push(currentLine);
+                    currentLine = w;
+                }
+            });
+            if (currentLine) lines.push(currentLine);
+            lines = lines.slice(0, 3);
+
+            const label = cfg.posterLabel;
+            const textYStart = 395 - (lines.length - 1) * 28;
+            const tspans = lines.map((line, idx) => 
+                `<tspan x="200" dy="${idx === 0 ? 0 : 34}">${line.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</tspan>`
+            ).join('');
+
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="600" viewBox="0 0 400 600">
+                <defs>
+                    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="${c1}"/>
+                        <stop offset="55%" stop-color="#11131d"/>
+                        <stop offset="100%" stop-color="${c2}"/>
+                    </linearGradient>
+                    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+                        <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="400" height="600" fill="url(#bg)"/>
+                <rect width="400" height="600" fill="url(#grid)"/>
+                <circle cx="200" cy="210" r="95" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+                <circle cx="200" cy="210" r="65" fill="rgba(255,255,255,0.04)" stroke="${c2}" stroke-width="3"/>
+                <polygon points="188,185 225,210 188,235" fill="#ffffff" opacity="0.85"/>
+                <rect x="24" y="24" width="352" height="552" rx="16" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+                <text x="200" y="545" font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="rgba(255,255,255,0.65)" text-anchor="middle" letter-spacing="3">${label}</text>
+                <text x="200" y="${textYStart}" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="1">${tspans}</text>
+            </svg>`;
+            return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+        }
+
+        const defaultGames = [
+            {
+                id: 'g1',
+                title: 'Elden Ring: Shadow of the Erdtree',
+                platform: 'steam',
+                genre: 'Action RPG',
+                status: 'Jugando',
+                cover: generatePosterSVG('Elden Ring', 'steam', '#3b2f10', '#d97706')
+            },
+            {
+                id: 'g2',
+                title: 'Super Mario Bros. Wonder',
+                platform: 'switch',
+                genre: 'Plataformas',
+                status: 'Instalado',
+                cover: generatePosterSVG('Super Mario Wonder', 'switch', '#7f1d1d', '#ef4444')
+            },
+            {
+                id: 'g2b',
+                title: 'Metroid Prime 4: Beyond',
+                platform: 'switch2',
+                genre: 'Aventura / Sci-Fi',
+                status: 'Por jugar',
+                cover: generatePosterSVG('Metroid Prime 4', 'switch2', '#7c2d12', '#ff5500')
+            },
+            {
+                id: 'g3',
+                title: 'Metal Gear Solid',
+                platform: 'ps1',
+                genre: 'Sigilo / Acción',
+                status: 'Completado',
+                cover: generatePosterSVG('Metal Gear Solid', 'ps1')
+            },
+            {
+                id: 'g4',
+                title: 'God of War II',
+                platform: 'ps2',
+                genre: 'Hack and Slash',
+                status: 'Instalado',
+                cover: generatePosterSVG('God of War II', 'ps2')
+            },
+            {
+                id: 'g5',
+                title: 'The Last of Us',
+                platform: 'ps3',
+                genre: 'Acción / Supervivencia',
+                status: 'Completado',
+                cover: generatePosterSVG('The Last of Us', 'ps3')
+            },
+            {
+                id: 'g6',
+                title: 'Marvel’s Spider-Man 2',
+                platform: 'ps5',
+                genre: 'Acción / Mundo Abierto',
+                status: 'Jugando',
+                cover: generatePosterSVG('Spider-Man 2', 'ps5')
+            }
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadLibrary();
+            renderGames();
+        });
+
+        function loadLibrary() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('rog_ally_x_game_vault_v2');
+                if (saved) {
+                    games = JSON.parse(saved);
+                } else {
+                    games = [...defaultGames];
+                    saveToStorage();
+                }
+            } catch (e) {
+                console.error('Error leyendo localStorage:', e);
+                games = [...defaultGames];
+            }
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
+            } catch (e) {
+                showToast('Almacenamiento lleno. Intenta usar URLs o imágenes más ligeras.', 'error');
+            }
+        }
+
+        function setFilter(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const isActive = btn.dataset.filter === filter;
+                if (isActive) {
+                    btn.className = 'filter-btn active px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-white text-black shadow-md';
+                } else {
+                    btn.className = 'filter-btn px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold whitespace-nowrap transition flex items-center gap-2 bg-rog-surface text-slate-300 hover:text-white border border-white/5';
+                }
+            });
+            renderGames();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            renderGames();
+        }
+
+        function updateCounters() {
+            document.getElementById('count-all').textContent = games.length;
+            document.getElementById('count-steam').textContent = games.filter(g => g.platform === 'steam').length;
+            document.getElementById('count-switch').textContent = games.filter(g => g.platform === 'switch').length;
+            document.getElementById('count-switch2').textContent = games.filter(g => g.platform === 'switch2').length;
+            document.getElementById('count-ps1').textContent = games.filter(g => g.platform === 'ps1').length;
+            document.getElementById('count-ps2').textContent = games.filter(g => g.platform === 'ps2').length;
+            document.getElementById('count-ps3').textContent = games.filter(g => g.platform === 'ps3').length;
+            document.getElementById('count-ps5').textContent = games.filter(g => g.platform === 'ps5').length;
+        }
+
+        function getStatusColor(status) {
+            switch (status) {
+                case 'Jugando': return 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30';
+                case 'Instalado': return 'bg-rog-cyan/15 text-rog-cyan border-rog-cyan/30';
+                case 'Completado': return 'bg-purple-500/20 text-purple-300 border-purple-500/30';
+                default: return 'bg-slate-500/20 text-slate-300 border-slate-500/30';
+            }
+        }
+
+        function renderGames() {
+            updateCounters();
+            const grid = document.getElementById('gamesGrid');
+            const emptyState = document.getElementById('emptyState');
+            const searchInput = document.getElementById('searchInput');
+            const clearBtn = document.getElementById('clearSearchBtn');
+            const query = searchInput.value.trim().toLowerCase();
+
+            clearBtn.classList.toggle('hidden', query.length === 0);
+
+            const filtered = games.filter(game => {
+                const matchesPlatform = 
+                    currentFilter === 'all' ||
+                    game.platform === currentFilter;
+                
+                const matchesQuery = !query || 
+                    game.title.toLowerCase().includes(query) || 
+                    (game.genre && game.genre.toLowerCase().includes(query));
+
+                return matchesPlatform && matchesQuery;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            emptyState.classList.remove('flex');
+
+            function getPlatformBadge(platform) {
+                switch (platform) {
+                    case 'switch':
+                        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-[#e60012]/90 text-white shadow-md flex items-center gap-1">
+                             <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M10.04 2H6.5A4.5 4.5 0 002 6.5v11A4.5 4.5 0 006.5 22h3.54V2zm-1.8 18.2H6.5A2.7 2.7 0 013.8 17.5v-11A2.7 2.7 0 016.5 3.8h1.74v16.4zM6.1 7.2a1.6 1.6 0 100 3.2 1.6 1.6 0 000-3.2zM17.5 2h-3.54v20h3.54a4.5 4.5 0 004.5-4.5v-11A4.5 4.5 0 0017.5 2zm.3 13.8a1.7 1.7 0 110-3.4 1.7 1.7 0 010 3.4z"/></svg>
+                             Switch
+                           </span>`;
+                    case 'switch2':
+                        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-[#ff5500]/90 text-white shadow-md flex items-center gap-1">
+                             <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                             Switch 2
+                           </span>`;
+                    case 'ps1':
+                        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-slate-700/90 text-slate-100 border border-slate-300/40 shadow-md flex items-center gap-1">
+                             <span class="w-2 h-2 rounded-full bg-slate-300"></span> PS1
+                           </span>`;
+                    case 'ps2':
+                        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-blue-950/90 text-blue-300 border border-blue-400/40 shadow-md flex items-center gap-1">
+                             <span class="w-2 h-2 rounded-full bg-blue-400"></span> PS2
+                           </span>`;
+                    case 'ps3':
+                        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-zinc-900/90 text-rose-300 border border-rose-500/40 shadow-md flex items-center gap-1">
+                             <span class="w-2 h-2 rounded-full bg-rose-500"></span> PS3
+                           </span>`;
+                    case 'ps5':
+                        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-white/95 text-slate-900 border border-sky-400 shadow-md flex items-center gap-1">
+                             <span class="w-2 h-2 rounded-full bg-sky-500"></span> PS5
+                           </span>`;
+                    default:
+                        return `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wider bg-[#171a21]/90 text-[#66c0f4] border border-[#66c0f4]/30 shadow-md flex items-center gap-1">
+                             <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.678 0 .511 4.86.022 11.037l6.432 2.658c.545-.371 1.203-.59 1.912-.59.063 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.635 0-3.016-1.173-3.331-2.727L.436 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 11.999-5.373 11.999-12S18.605 0 11.979 0z"/></svg>
+                             Steam
+                           </span>`;
+                }
+            }
+
+            grid.innerHTML = filtered.map(game => {
+                const platformBadge = getPlatformBadge(game.platform);
+                const fallbackImg = generatePosterSVG(game.title, game.platform);
+                const isInCart = selectedCart.includes(game.id);
+
+                return `
+                <article class="group relative bg-rog-card rounded-2xl overflow-hidden border border-white/10 rog-card-glow flex flex-col">
+                    <div class="relative cover-aspect w-full overflow-hidden bg-rog-bg">
+                        <img src="${game.cover || fallbackImg}" 
+                             alt="${game.title.replace(/"/g, '&quot;')}" 
+                             onerror="this.onerror=null; this.src='${fallbackImg}';"
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#090a0f] via-transparent to-black/50 opacity-85"></div>
+
+                        <div class="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-1">
+                            ${platformBadge}
+                            
+                            <!-- Botón + en esquina superior para Modo Cliente -->
+                            <div class="flex items-center gap-1">
+                                <button onclick="toggleCartItem('${game.id}')" title="${isInCart ? 'Quitar del pedido' : 'Añadir al pedido'}" 
+                                    class="client-mode-item ${isClientMode ? 'flex' : 'hidden'} w-9 h-9 rounded-xl ${isInCart ? 'bg-emerald-500 text-black border-emerald-400 font-bold scale-105 shadow-emerald-500/40' : 'bg-black/75 text-emerald-400 border-emerald-500/50 hover:bg-emerald-500 hover:text-black'} backdrop-blur-md border items-center justify-center transition active:scale-90 shadow-lg text-base">
+                                    ${isInCart ? '✓' : '+'}
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Botones de administración (Lápiz y Basura) visibles ÚNICAMENTE en Modo Administrador -->
+                        <div class="admin-controls absolute bottom-2.5 right-2.5 flex items-center gap-1.5 ${isClientMode ? 'hidden' : 'flex opacity-95 sm:opacity-0 sm:group-hover:opacity-100'} transition-opacity duration-200">
+                            <button onclick="openGameModal('${game.id}')" title="Editar juego y carátula" 
+                                class="p-2 rounded-xl bg-rog-surface/90 hover:bg-rog-cyan hover:text-black text-white backdrop-blur-md border border-white/20 shadow-lg transition active:scale-90">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                            </button>
+                            <button onclick="askDeleteGame('${game.id}')" title="Eliminar juego" 
+                                class="p-2 rounded-xl bg-rog-surface/90 hover:bg-rog-red text-white backdrop-blur-md border border-white/20 shadow-lg transition active:scale-90">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="p-3 flex-1 flex flex-col justify-between bg-rog-card">
+                        <div>
+                            <h3 class="font-bold text-sm text-white line-clamp-1 group-hover:text-rog-cyan transition" title="${game.title.replace(/"/g, '&quot;')}">
+                                ${game.title}
+                            </h3>
+                            <p class="text-xs text-slate-400 line-clamp-1 mt-0.5">${game.genre || 'Videojuego'}</p>
+                        </div>
+                        <div class="mt-2.5 flex items-center justify-between">
+                            <span class="px-2 py-0.5 rounded-md text-[10px] font-semibold border ${getStatusColor(game.status)}">
+                                ${game.status || 'Instalado'}
+                            </span>
+                            <button onclick="toggleCartItem('${game.id}')" class="client-mode-item ${isClientMode ? 'inline-block' : 'hidden'} text-[11px] font-semibold ${isInCart ? 'text-emerald-400' : 'text-slate-400 hover:text-white'}">
+                                ${isInCart ? 'En Pedido ✓' : '+ Seleccionar'}
+                            </button>
+                        </div>
+                    </div>
+                </article>
+                `;
+            }).join('');
+        }
+
+        let selectedCart = [];
+        let isClientMode = true; // Iniciamos por defecto en modo cliente para proteger la edición
+
+        function toggleClientMode() {
+            if (isClientMode) {
+                // Si está en modo cliente y quiere pasar a admin, pedimos contraseña
+                openPasswordModal();
+            } else {
+                // Si ya es admin, pasa a cliente directamente
+                isClientMode = true;
+                updateUIMode();
+                showToast('Activado Modo Cliente');
+            }
+        }
+
+        function openPasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            document.getElementById('adminPasswordInput').value = '';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => document.getElementById('adminPasswordInput').focus(), 100);
+        }
+
+        function closePasswordModal() {
+            const modal = document.getElementById('passwordModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function verifyAdminPassword(event) {
+            event.preventDefault();
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (pass === '12345678') {
+                isClientMode = false;
+                closePasswordModal();
+                updateUIMode();
+                showToast('¡Modo Administrador activado con éxito!');
+            } else {
+                showToast('Contraseña incorrecta', 'error');
+                document.getElementById('adminPasswordInput').value = '';
+            }
+        }
+
+        function updateUIMode() {
+            const btnText = document.getElementById('clientModeText');
+            const clientBtn = document.getElementById('clientModeBtn');
+            const addBtn = document.getElementById('addGameMainBtn');
+            const githubBtn = document.getElementById('exportGithubBtn');
+
+            if (isClientMode) {
+                btnText.textContent = 'Modo Cliente';
+                clientBtn.className = 'p-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition active:scale-95 flex items-center gap-1.5 text-xs font-semibold';
+                if (addBtn) addBtn.classList.add('hidden');
+                if (githubBtn) githubBtn.classList.add('hidden');
+            } else {
+                btnText.textContent = 'Modo Admin';
+                clientBtn.className = 'p-2.5 rounded-xl bg-purple-500/15 text-purple-300 border border-purple-500/30 transition active:scale-95 flex items-center gap-1.5 text-xs font-semibold';
+                if (addBtn) addBtn.classList.remove('hidden');
+                if (githubBtn) githubBtn.classList.remove('hidden');
+            }
+            renderGames();
+        }
+
+        function copyUpdatedHTMLForGithub() {
+            // Inyecta el catálogo actual directamente en el código fuente para que todos los clientes lo vean en GitHub Pages
+            const currentDocHTML = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+            const serializedGames = JSON.stringify(games, null, 12);
+            const updatedHTML = currentDocHTML.replace(
+                /const defaultGames = \[[\s\S]*?\];/,
+                `const defaultGames = ${serializedGames};`
+            );
+
+            const textarea = document.createElement('textarea');
+            textarea.value = updatedHTML;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            showToast('¡Código listo! Pégalo en tu index.html de GitHub');
+        }
+
+        function openGameModal(id = null) {
+            const modal = document.getElementById('gameModal');
+            const titleEl = document.getElementById('modalTitle');
+            const form = document.getElementById('gameForm');
+            form.reset();
+            document.getElementById('gameId').value = '';
+            currentBase64Image = '';
+
+            if (id) {
+                titleEl.textContent = 'Editar Juego';
+                const game = games.find(g => g.id === id);
+                if (game) {
+                    document.getElementById('gameId').value = game.id;
+                    document.getElementById('titleInput').value = game.title;
+                    document.getElementById('genreInput').value = game.genre || '';
+                    document.getElementById('statusInput').value = game.status || 'Instalado';
+                    document.getElementById('imageUrlInput').value = game.cover && !game.cover.startsWith('data:image/svg+xml') ? game.cover : '';
+                    
+                    const radio = document.querySelector(`input[name="platform"][value="${game.platform}"]`);
+                    if (radio) radio.checked = true;
+                    
+                    currentBase64Image = game.cover || '';
+                    document.getElementById('coverPreview').src = game.cover || generatePosterSVG(game.title, game.platform);
+                }
+            } else {
+                titleEl.textContent = 'Agregar Nuevo Juego';
+                document.querySelector('input[name="platform"][value="steam"]').checked = true;
+                updateLivePreview();
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeGameModal() {
+            const modal = document.getElementById('gameModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function updateLivePreview() {
+            const title = document.getElementById('titleInput').value || 'Nuevo Juego';
+            const platform = document.querySelector('input[name="platform"]:checked')?.value || 'steam';
+            const preview = document.getElementById('coverPreview');
+            const badge = document.getElementById('previewBadge');
+
+            badge.textContent = platform.toUpperCase();
+
+            if (!currentBase64Image || currentBase64Image.startsWith('data:image/svg+xml')) {
+                currentBase64Image = generatePosterSVG(title, platform);
+            }
+            preview.src = currentBase64Image;
+        }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const MAX_WIDTH = 400;
+                    const MAX_HEIGHT = 600;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
+                    } else {
+                        if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    currentBase64Image = canvas.toDataURL('image/jpeg', 0.85);
+                    document.getElementById('coverPreview').src = currentBase64Image;
+                    document.getElementById('imageUrlInput').value = '';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleUrlInput() {
+            const url = document.getElementById('imageUrlInput').value.trim();
+            if (url) {
+                currentBase64Image = url;
+                document.getElementById('coverPreview').src = url;
+            } else {
+                updateLivePreview();
+            }
+        }
+
+        function saveGame(event) {
+            event.preventDefault();
+            const id = document.getElementById('gameId').value;
+            const title = document.getElementById('titleInput').value.trim();
+            const platform = document.querySelector('input[name="platform"]:checked').value;
+            const genre = document.getElementById('genreInput').value.trim();
+            const status = document.getElementById('statusInput').value;
+            const cover = currentBase64Image || generatePosterSVG(title, platform);
+
+            if (id) {
+                const game = games.find(g => g.id === id);
+                if (game) {
+                    game.title = title;
+                    game.platform = platform;
+                    game.genre = genre;
+                    game.status = status;
+                    game.cover = cover;
+                }
+                showToast('Juego actualizado exitosamente');
+            } else {
+                const newGame = {
+                    id: 'g_' + Date.now(),
+                    title,
+                    platform,
+                    genre,
+                    status,
+                    cover
+                };
+                games.unshift(newGame);
+                showToast('Juego agregado a la biblioteca');
+            }
+
+            saveToStorage();
+            closeGameModal();
+            renderGames();
+        }
+
+        function askDeleteGame(id) {
+            gameIdToDelete = id;
+            const game = games.find(g => g.id === id);
+            document.getElementById('deleteGameName').textContent = game ? `¿Eliminar "${game.title}"?` : 'Esta acción quitará el juego.';
+            const modal = document.getElementById('deleteModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('confirmDeleteBtn').onclick = executeDeleteGame;
+        }
+
+        function closeDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            gameIdToDelete = null;
+        }
+
+        function executeDeleteGame() {
+            if (!gameIdToDelete) return;
+            games = games.filter(g => g.id !== gameIdToDelete);
+            saveToStorage();
+            closeDeleteModal();
+            renderGames();
+            showToast('Juego eliminado');
+        }
+
+        function toggleCartItem(id) {
+            const index = selectedCart.indexOf(id);
+            if (index > -1) {
+                selectedCart.splice(index, 1);
+                showToast('Juego quitado de tu selección');
+            } else {
+                selectedCart.push(id);
+                showToast('Juego agregado a tu pedido de WhatsApp');
+            }
+            updateCartBadge();
+            renderGames();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cartCountBadge');
+            if (selectedCart.length > 0) {
+                badge.textContent = selectedCart.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        function openCartModal() {
+            if (selectedCart.length === 0) {
+                showToast('Aún no has seleccionado ningún juego para tu pedido', 'error');
+                return;
+            }
+            const modal = document.getElementById('cartModal');
+            const listContainer = document.getElementById('cartGamesList');
+            
+            const cartGames = games.filter(g => selectedCart.includes(g.id));
+            listContainer.innerHTML = cartGames.map(g => `
+                <div class="flex items-center justify-between bg-rog-bg p-2.5 rounded-xl border border-white/10">
+                    <div class="flex items-center gap-3">
+                        <img src="${g.cover}" class="w-10 h-14 object-cover rounded-lg">
+                        <div>
+                            <h4 class="text-xs font-bold text-white line-clamp-1">${g.title}</h4>
+                            <span class="text-[10px] text-slate-400 uppercase">${g.platform}</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleCartItem('${g.id}'), openCartModal()" class="text-xs text-rog-red hover:underline px-2 py-1">Quitar</button>
+                </div>
+            `).join('');
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCartModal() {
+            const modal = document.getElementById('cartModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function sendWhatsAppOrder() {
+            const clientName = document.getElementById('clientNameInput').value.trim() || 'Cliente';
+            const cartGames = games.filter(g => selectedCart.includes(g.id));
+            
+            let message = `🎮 *PEDIDO DE JUEGOS - LATOXA GAMING* 🎮\n`;
+            message += `👤 *Cliente:* ${clientName}\n\n`;
+            message += `Juegos solicitados (${cartGames.length}):\n`;
+            cartGames.forEach((g, idx) => {
+                message += `${idx + 1}. *${g.title}* (${g.platform.toUpperCase()})\n`;
+            });
+            message += `\n¡Hola! Me interesan estos títulos para mi ROG Ally X. ¿Están disponibles?`;
+
+            const encoded = encodeURIComponent(message);
+            const phoneNumber = '51946661724';
+            const url = `https://wa.me/${phoneNumber}?text=${encoded}`;
+            window.open(url, '_blank');
+        }
+
+        // Inicialización única y limpia para hosting web
+        document.addEventListener('DOMContentLoaded', () => {
+            loadLibrary();
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('mode') === 'admin') {
+                isClientMode = true;
+                updateUIMode();
+                openPasswordModal();
+            } else {
+                isClientMode = true;
+                updateUIMode();
+            }
+        });
+
+        let toastTimeout;
+        function showToast(msg, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            const toastDot = document.getElementById('toastDot');
+
+            toastMsg.textContent = msg;
+            toastDot.className = `w-2.5 h-2.5 rounded-full ${type === 'error' ? 'bg-rog-red' : 'bg-rog-cyan'}`;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
